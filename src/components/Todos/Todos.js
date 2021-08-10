@@ -1,27 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Todo from '../Todo/Todo';
 
-export function Todos(props) {
+import Todo from '../Todo/Todo.js'
+
+export default function Todos({array}) {
+  
   return (
-    <div>
-      <span>{props.status}</span>
-      {props.listaTODOS.map( (todo) => {
-        return (
-          <Link key={todo.id} to={`/edit/${todo.id}`}>
-            <Todo title={todo.title} />
-          </Link>
-        )
-      })}
+    <div >
+      {array.map(e=><Todo key={e.id} tod={e}/>)}
+      
     </div>
   )
 };
-
-function mapStatetoProps(state){
-  return {
-    listaTODOS: state
-  }
-}
-
-export default connect ( mapStatetoProps) (Todos);

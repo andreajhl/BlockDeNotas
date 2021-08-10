@@ -1,7 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React,{useState} from 'react'; 
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { addTodo } from '../../actions'
-import './AddTodo.css'
+
+import swal from 'sweetalert';
+
 
 // Nota 1: Para utilizar el hook `useState` para el manejo de estados de los inputs, tendras que utilizarlo de la siguiente manera
 //React.useState
@@ -9,13 +13,13 @@ import './AddTodo.css'
 // Nota 2: En este componente tendras que usar la funcion `connect` de react-redux para conectarte al store. 
 // Si usas el hook `useDispatch` no funcionaran los test.
 
-export function AddTodo(props) {
-  //console.log(props)
-  const [state, setState] = React.useState({
+export  function AddTodo() {
+  const dispatch = useDispatch()
+  const history= useHistory()
+
+  const [state, setState] = useState({
     title:'',
     description:'',
-    place:'',
-    date:''
   });
 
   function handleChange(e){
@@ -27,24 +31,31 @@ export function AddTodo(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    props.addTodo(state)
+    dispatch(addTodo(state))
+    setState({
+      title:'',
+      description:'',
+    });
+    tarea()
+  }
+
+  function tarea(){
+    swal("Tarea Creada", "", "success")
+    history.push('/')
+
   }
 
   return (
     <div>
-      <form className='form' onSubmit = { (e) => handleSubmit(e) } >
-        <label htmlFor='title'>Title</label>
-        <input className='inputs'name='title' value={state.name} onChange={(e) => handleChange(e)} />
-        <label htmlFor='description'>Description</label>
+      <form className='form' onSubmit = { (e) => handleSubmit(e)} >
+        <label className='labelF' >Tarea</label>
+        <input className='inputs'name='title' value={state.name} type='text' onChange={(e) => handleChange(e)} />
+        <label className='labelF' >Descricción</label>
         <textarea className='inputs' value={state.description} name='description' onChange={(e) => handleChange(e)}></textarea>
-        <label  htmlFor='place'>Place</label>
-        <input className='inputs' name='place' value={state.place} onChange={(e) => handleChange(e)} />
-        <label htmlFor='date'>Date</label>
-        <input className='inputs' name='date' value={state.date} onChange={(e) => handleChange(e)} />
-        <button className='button' type='submit' >Submit</button>
+      <button className='button' type='submit'>Crear Tarea</button>
       </form>
+      
     </div>
   )
 };
 
-export default connect( null, {addTodo} )(AddTodo);

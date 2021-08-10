@@ -6,29 +6,27 @@ export const addTodo = (payload) => {
         type: 'AddTodo',
         payload: {
             ...payload,
-            status: 'Todo',
+            status: 'Activo',
             id: todoId++,
         }
     }
 };
 
-export const removeTodo = (payload) => {
+export const removeTodo = (id) => {
     return {
         type: 'RemoveTodo',
-        payload,
+        payload:id
     }
 };
-
-export const toInProgress = (payload) => {
+export const toTerminado = (id) => {
     return {
-        type: 'ToInProgress',
-        payload,
+        type: 'toTerminado',
+        payload:id
     }
 };
-
-export const toDone = (payload) => {
+export const todoDetail = (id) => {
     return {
-        type: 'ToDone',
-        payload,
+        type: 'TodoDetail',
+        payload: id
     }
-};;
+};
