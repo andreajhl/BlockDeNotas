@@ -1,0 +1,9 @@
+@import 'global';
+
+.todo_c{
+    @include caja-flex(flex,column,center,center,nowrap);
+    background-color: $color2;
+    border-radius: 30px;
+    width: 90%;
+    height: 10%;
+}

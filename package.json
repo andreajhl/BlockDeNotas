@@ -46,7 +46,8 @@
     ]
   },
   "devDependencies": {
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "sass": "^1.37.5"
   },
   "jest": {
     "coverageReporters": [

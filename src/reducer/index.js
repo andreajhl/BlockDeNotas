@@ -34,6 +34,7 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         Activo: filtrarId(payload,state.Activo),
+        All: filtrarId(payload,state.All),
         Terminado: [todoD,...state.Terminado]
       }
     case 'TodoDetail':

@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 import { addTodo } from '../../actions'
 
 import swal from 'sweetalert';
+import '../../Styles/Form.scss'
+import {SiCheckmarx} from 'react-icons/si'
 
 
 // Nota 1: Para utilizar el hook `useState` para el manejo de estados de los inputs, tendras que utilizarlo de la siguiente manera
@@ -46,15 +48,19 @@ export  function AddTodo() {
   }
 
   return (
-    <div>
-      <form className='form' onSubmit = { (e) => handleSubmit(e)} >
-        <label className='labelF' >Tarea</label>
-        <input className='inputs'name='title' value={state.name} type='text' onChange={(e) => handleChange(e)} />
-        <label className='labelF' >Descricción</label>
-        <textarea className='inputs' value={state.description} name='description' onChange={(e) => handleChange(e)}></textarea>
-      <button className='button' type='submit'>Crear Tarea</button>
-      </form>
-      
+    <div className='form'>
+      <form className='form_c' onSubmit = { (e) => handleSubmit(e)} >
+          <div className='button'>
+            <button className='button_b' type='submit'><SiCheckmarx /></button>  
+          </div>
+          <div className='form_cc'>
+            <p className='pF' >Crear Tarea</p>
+            <input className='input'name='title' value={state.name} type='text' onChange={(e) => handleChange(e)} />
+            <p className='pF' >Descricción</p>
+            <textarea className='inputText' value={state.description} name='description' onChange={(e) => handleChange(e)}></textarea>
+          
+          </div>
+     </form>
     </div>
   )
 };

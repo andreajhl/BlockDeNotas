@@ -1,0 +1,19 @@
+$color1:#fff3e2;
+$color2:#ebcfc4;
+$color3:#c588d4;
+$color4:#772ea1;
+
+$smarmini:"(max-width: 340px)";
+$smarphone:"(min-width: 340px) and(max-width: 480px)";
+$tablet:"(min-width:480px) and (max-width:728px)";
+$desktop:"(min-width:728px) and(max-width: 983px)";
+$pantallaGrande:"(min-width: 983px)";
+
+
+@mixin caja-flex ($flex,$direction,$principal, $cruzado, $wrap){
+    display: $flex;
+    flex-direction: $direction;
+    justify-content: $principal;
+    align-items: $cruzado;
+    flex-wrap: $wrap;
+}

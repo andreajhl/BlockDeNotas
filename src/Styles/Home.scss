@@ -1,0 +1,40 @@
+@import 'global';
+
+body{
+    background-color: $color4;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.home{
+    @include caja-flex(flex, row, space-evenly,center,nowrap);
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+
+    &_tarea{
+        @include caja-flex(flex, column, space-evenly,flex-start,nowrap);
+        background-color: $color3;
+        height: 80vh;
+        width: 30%;
+        margin: 2%;
+        border: 1px solid $color2;
+        border-radius: 2%;
+        overflow: hidden;
+        &_p{
+            background-color: $color1;
+            margin: 0px;
+            width:100% ;
+            height: 10%;
+            color: black;
+            font-size: 18px;
+            
+        }
+
+        &_con{
+            @include caja-flex(flex,column,center,center,nowrap);
+            width: 100%;
+            height: 100%;
+            padding: 1%;
+        }
+    }
+}
