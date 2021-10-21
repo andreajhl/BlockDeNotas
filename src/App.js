@@ -1,7 +1,8 @@
 import React from 'react'
-import { Route } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { Route, Switch, Redirect} from "react-router-dom";
 import './App.css';
-import Nav from './components/Nav/Nav';
+import Login from "./components/Login/login";
 import TodoDetail from './components/TodoDetail/TodoDetail';
 import Home from './components/Home/Home';
 import { AddTodo } from './components/AddTodo/AddTodo';
@@ -9,20 +10,35 @@ import { AddTodo } from './components/AddTodo/AddTodo';
 
 // En este componente deberias cargar tus rutas.
 export function App() {
-  return (
 
-    /* "/": La Home, acá vamos a ver nuestros todos.
-"/add": En esta ruta vamos a poder crear nuestro TODO.
-"/edit/{todoId}": en esta ruta, vamos a poder editar un todo para cambiarle su status. (extra credit) */
-      <div className="App">
-        <Route path="/" component={Nav} />
-        <Route exact path="/" component={Home} />
-        <Route path="/add" component={AddTodo} />
-        <Route 
-          path="/edit/:id" 
-          render = {({match}) => <TodoDetail match={match} />}
-        />
-      </div>
+  const token= useSelector(state=>state.user);
+
+  return (
+    <div className="App">
+    <Switch>
+      <Route 
+        exact path='/login' render={()=>{
+          return !token ? <Login/> : <Redirect to='/' />
+        }}
+      />
+      <Route exact path= '/' render={()=>{
+            return token? <Home/> : <Redirect to='/login'/>
+          }}
+      />
+      <Route path= '/add/:id' render={()=>{
+          return token? <AddTodo/> : <Redirect to='/login'/>
+        }}
+      />
+            <Route path= '/edit/:id' render={()=>{
+          return token? <AddTodo/> : <Redirect to='/login'/>
+        }}
+      />
+            <Route path= '/heroe/:id' render={()=>{
+          return token? <TodoDetail/> : <Redirect to='/login'/>
+        }}
+      />
+    </Switch>
+  </div>
   );
 }
 
