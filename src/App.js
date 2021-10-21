@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Route, Switch, Redirect} from "react-router-dom";
 import './App.css';
 import Login from "./components/Login/login";
-import TodoDetail from './components/TodoDetail/TodoDetail';
+import DetailsNote from './components/DetailsNote/DetailsNote';
 import Home from './components/Home/Home';
-import { AddTodo } from './components/AddTodo/AddTodo';
+import AddNote from './components/AddNote/AddNote';
 
 
 // En este componente deberias cargar tus rutas.
@@ -26,15 +26,15 @@ export function App() {
           }}
       />
       <Route path= '/add/:id' render={()=>{
-          return token? <AddTodo/> : <Redirect to='/login'/>
+          return token? <AddNote/> : <Redirect to='/login'/>
         }}
       />
             <Route path= '/edit/:id' render={()=>{
-          return token? <AddTodo/> : <Redirect to='/login'/>
+          return token? <AddNote/> : <Redirect to='/login'/>
         }}
       />
             <Route path= '/heroe/:id' render={()=>{
-          return token? <TodoDetail/> : <Redirect to='/login'/>
+          return token? <DetailsNote/> : <Redirect to='/login'/>
         }}
       />
     </Switch>
