@@ -1,32 +1,155 @@
-// Podes usar esta variable para generar un ID por cada Todo.
-let todoId = 1
+import axios from 'axios';
 
-export const addTodo = (payload) => {
-    return {
-        type: 'AddTodo',
-        payload: {
-            ...payload,
-            status: 'Activo',
-            id: todoId++,
-        }
-    }
+export const DETAILS_NOTE = 'DETAILS_NOTE';
+export const REMOVE_NOTE = 'REMOVE_NOTE';
+export const EDIT_NOTE = 'EDIT_NOTE';
+export const ADD_NOTE = 'ADD_NOTE';
+export const NOTES = 'NOTES';
+export const ERROR = 'ERROR';
+export const USER = 'USER';
+
+const URL = 'https://jsonplaceholder.typicode.com'
+const URL_LOGIN = 'http://challenge-react.alkemy.org'
+//user
+
+export function login (email,password) {
+    return async function(dispatch){
+        try {
+        let loginUser= await axios.post(URL_LOGIN, {
+            email,password
+        });
+
+    localStorage.setItem('token',loginUser.data.token)
+
+            return dispatch({
+                type: USER,
+                payload:loginUser.data.token
+            });
+    
+        } catch (error) {
+
+            let errors=Number(`${error}`.split('code')[1]) === 401 ? 
+            'Usuario o contraseña invalidos' : 
+            'Ah ocurrido un error, intente mas tarde'
+
+            return dispatch({
+                type: ERROR,
+                payload:errors
+            });
+        };
+    };
 };
 
-export const removeTodo = (id) => {
+export function logoutState () {
+
+    localStorage.removeItem('token');
+
     return {
-        type: 'RemoveTodo',
-        payload:id
-    }
+        type: USER,
+        payload:undefined
+    };
 };
-export const toTerminado = (id) => {
-    return {
-        type: 'toTerminado',
-        payload:id
-    }
+
+
+//Notes
+
+export function initialNotes () {
+    return async function(dispatch){
+        try {
+            let {data}= await axios.get(`${URL}/posts`);
+
+            return dispatch({
+                type: NOTES,
+                payload: data
+            });
+
+        } catch (error) {
+            return dispatch({
+                type: ERROR,
+                payload:'Ops! ha ocurrido un error'
+            });
+        };
+    };
 };
-export const todoDetail = (id) => {
-    return {
-        type: 'TodoDetail',
-        payload: id
-    }
+export function  addNote (newNote,userID) {
+    return async function(dispatch){
+        try {
+        let note= await axios.post(`${URL}/posts`, {
+        ...newNote,userId:userID
+        });
+
+        return dispatch({
+            type: ADD_NOTE,
+            payload: note
+        });
+
+        } catch (error) {
+    
+            return dispatch({
+                type: ERROR,
+                payload:'No se puedo agregar la nota'
+            });
+        };
+    };
+};
+
+export function removeNote (id) {
+    return async function(dispatch){
+        try {
+            await axios.delete(`${URL}/posts/${id}`);
+
+            return dispatch({
+                type: REMOVE_NOTE,
+                payload:id
+            });
+            
+        } catch (error) {
+
+            return dispatch({
+                type: ERROR, 
+                payload:'No se puedo eliminar la nota'
+            }); 
+        };
+    };
+};
+
+export function editNote (id,userID,newNote) {
+    return async function(dispatch){
+        try {
+            let note= await axios.put(`${URL}/posts/${id}`, {
+            ...newNote,userId:userID,id
+            });
+
+            return dispatch({
+                type: EDIT_NOTE,
+                payload: note
+            });
+
+        } catch (error) {
+            return dispatch({
+                type: ERROR,
+                payload:'No se puedo editar la nota'
+            }); 
+        };
+    };
+};
+
+export function detailsNote (id) {
+    return async function(dispatch){
+        try {
+            let note= await axios.get(`${URL}/posts/${id}`);
+
+            return dispatch({
+                type: DETAILS_NOTE,
+                payload: note
+            });
+            
+        } catch (error) {
+
+            return dispatch({
+                type: ERROR,
+                payload:'No se encontro la nota'
+            }); 
+        };
+    };
 };

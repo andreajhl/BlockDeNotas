@@ -1,47 +1,64 @@
-import { buscarId, filtrarId } from "./funciones";
+import {
+  DETAILS_NOTE,
+  REMOVE_NOTE,
+  EDIT_NOTE,
+  ADD_NOTE,
+  NOTES,
+  ERROR,
+  USER
+} from '../actions/index'
+
+var token=localStorage.getItem('token');
 
 const initialState = {
-  Activo: [],
-  All:[],
-  Terminado:[],
-  Detail:{}
+  notes:[],
+  detail:{},
+  user:token? token : false,
+  errors:undefined
 };
 
-//En nuestro estado guardaremos objetos con `todos`. Cada todo tendra: title, description, place, date, id y un status;
-const todos = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   const {type, payload}=action
  
   switch(type) {
-    // Aca va tu codigo;
     
-    case 'AddTodo':
+    case USER:
+      return{
+        ...state,
+        user:payload
+      }
+    case NOTES:
+      return{
+        ...state,
+        notes:payload
+      }
+    case ADD_NOTE:
       return {
         ...state,
-        Activo:[payload,...state.Activo],
-        All: [payload,...state.All]
+        notes:[payload,...state.notes]
       }
-    case 'RemoveTodo':
+    case REMOVE_NOTE:
       return {
         ...state,
-        Activo:filtrarId(payload,state.Activo),
-        All:filtrarId(payload, state.All),
-        Terminado: filtrarId(payload, state.Terminado)
+        notes: [...state.notes].filter(e=>e.id!==payload)
       }
-    case 'toTerminado':
-      var todoD= buscarId(payload,state.Activo)
-      todoD.status='Terminado'
+    case EDIT_NOTE:
+      var index= state.notes.find((e,i)=>e.id===payload.id)
 
       return {
         ...state,
-        Activo: filtrarId(payload,state.Activo),
-        All: filtrarId(payload,state.All),
-        Terminado: [todoD,...state.Terminado]
+        notes: [...state.notes].splice(index,1,payload)
       }
-    case 'TodoDetail':
-      var search = buscarId(payload,state.All)
+    case DETAILS_NOTE:
+      
       return{
         ...state,
-        Detail: search 
+        Detail: payload
+      }
+    case ERROR:
+      return{
+        ...state,
+        errors:payload
       }
     default:
       return state;
@@ -49,4 +66,4 @@ const todos = (state = initialState, action) => {
   
 }
 
-export default todos;
+export default rootReducer;
