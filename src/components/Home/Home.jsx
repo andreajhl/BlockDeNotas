@@ -1,37 +1,37 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { initialNotes } from '../../actions/index.js';
 
-import Note from '../Note/Note.jsx'
+import Paginacion from '../Paginacion/Paginacion.js';
+import DetailsNote from '../DetailsNote/DetailsNote.jsx';
 
 import '../../Styles/Home.scss'
+import details from '../../img/details.png'
 
-
-//acceso a estados globles
-const notesState=(state)=>state.notes;
+const noteDetailsState=(state)=>state.details;
 
 export function Home() {
-  const dispatch = useDispatch()
-  const notes= useSelector(notesState)
+
+  const dispatch = useDispatch();
+  const noteDetails= useSelector(noteDetailsState);
 
   useEffect(() => {
     dispatch(initialNotes())
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <div className='home'>
-
-      <div className='home_tarea'>
-        <div className='home_tarea_p'>
-          <p >Tareas</p>
-        </div>
-        <div className='home_tarea_con'>
-          {notes.length>0 && notes.map(e=><Note key={e.id} tod={e}/>)}
+     <div className='home_note_details'>
+        <img src={details} className='home_note_details_i' />
+        {noteDetails && <DetailsNote />}
+      </div>
+      <div className='home_notes'>
+        <div className='home_notes_col'>
+          <Paginacion />
         </div>
       </div> 
-      <div className='home_tarea'>
-
-      </div>
+ 
     </div>
   )
 };
