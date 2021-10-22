@@ -8,7 +8,6 @@ import Home from './components/Home/Home';
 import AddNote from './components/AddNote/AddNote';
 
 
-// En este componente deberias cargar tus rutas.
 export function App() {
 
   const token= useSelector(state=>state.user);

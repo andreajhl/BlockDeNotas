@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { initialNotes } from '../../actions/index.js';
 
-import Paginacion from '../Paginacion/Paginacion.js';
+import Paginacion from '../Paginacion/Paginacion.jsx';
 import DetailsNote from '../DetailsNote/DetailsNote.jsx';
 
 import '../../Styles/Home.scss'
