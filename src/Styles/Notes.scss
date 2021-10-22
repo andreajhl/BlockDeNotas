@@ -1,0 +1,8 @@
+@import "global";
+
+.notes {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  row-gap: 10%;
+  column-gap: 5%;
+}

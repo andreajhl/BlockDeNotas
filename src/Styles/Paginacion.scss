@@ -1,0 +1,24 @@
+@import "global";
+
+.paginacion {
+  @include caja-flex(flex, column, center, center, nowrap);
+  width: 100%;
+  height: 100%;
+  &_notes {
+    height: 85%;
+    width: 100%;
+  }
+  &_buttons {
+    @include caja-flex(flex, row, space-around, center, nowrap);
+    width: 20%;
+    height: 5%;
+  }
+  &_btn {
+    border: none;
+    background: none;
+
+    &_i {
+      font-size: 25px;
+    }
+  }
+}
