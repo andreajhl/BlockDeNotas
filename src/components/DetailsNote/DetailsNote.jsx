@@ -1,55 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
-import {detailsNote,editNote} from '../../actions/index'
+import {detailsNote} from '../../actions/index';
 
-import swal from 'sweetalert';
+const detailState = (state) => state.details
 
+export default function DetailsNote() {
 
+  const id= useParams();
+  const dispatch = useDispatch();
+  const details = useSelector(detailState);
 
-export default function DetailsNote({match}) {
-
-  const id= match.params.id
-
-  const history=useHistory()
-
-  const dispatch = useDispatch()
-  dispatch(detailsNote(id))
-
-  const state = useSelector(state => state.Detail)
+  const {title,body} = details;
   
-  function culminar(){
-    dispatch(editNote(id))
-    swal("Tarea Culminada", "", "success")
-    history.push('/')
-   
-  }
+  useEffect(() => {
+    dispatch(detailsNote(id))
+  }, [dispatch,detailsNote])
 
- if(state){
-    return (
-      <div>
-        <p>{state.title}</p>
-        <p>{state.status}</p>
-        <p>{state.description}</p>
-       {
-         state.status==='Activo' && <div>
-           <p>¿culminaste tu tarea?</p>
-           <button onClick={()=> culminar()}></button>
-         </div>
-       }
-        
-      </div>
-    )
-  }else{
-    setTimeout(() => {
-      history.push('/')
-    }, 1000);
-   
-    return(
-       <div>No existe la tarea buscada</div>
-    )
-    
-  }
-  
+  return (
+    <div className='details_text'>
+      <h2>{title}</h2>
+      <p><label>Note n° {id}</label></p>
+      <p>{body}</p>        
+    </div>
+  )  
 };
