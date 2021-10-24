@@ -5,8 +5,13 @@
   width: 100%;
   height: 100%;
   &_notes {
-    height: 85%;
+    height: 80%;
     width: 100%;
+    @media #{$smarphone} {
+      padding-top: 30px;
+      margin-bottom: 5px;
+      overflow-y: auto;
+    }
   }
   &_buttons {
     @include caja-flex(flex, row, space-around, center, nowrap);

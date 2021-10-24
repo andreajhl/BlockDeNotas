@@ -1,17 +1,22 @@
 @import "global";
 
 .note {
-  @include caja-flex(flex, column, space-around, center, nowrap);
+  @include caja-flex(flex, column, center, center, nowrap);
   width: 100%;
   border-radius: 10px;
   box-shadow: 0px 5px 8px rgb(36, 35, 35);
   position: relative;
   padding-top: 5px;
-  p {
+  &_tittle {
     color: black;
     margin-bottom: 2%;
+    background: none;
+    border: none;
   }
-
+  &_div {
+    min-height: 80%;
+    @include caja-flex(flex, column, center, center, nowrap);
+  }
   &_pin {
     background-color: white;
     border-radius: 100%;
@@ -32,12 +37,25 @@
     width: 90%;
     display: flex;
     flex-direction: row-reverse;
+    min-height: 10%;
     &_element {
       background: none;
       border: none;
+      color: black;
+    }
+    &_element:hover {
+      color: rgb(129, 1, 214);
     }
     &_i {
       font-size: 25px;
+    }
+    &_delete {
+      background: none;
+      border: none;
+      color: black;
+    }
+    &_delete:hover {
+      color: red;
     }
   }
 }

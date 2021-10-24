@@ -2,7 +2,13 @@
 
 .notes {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 45% 45%;
   row-gap: 10%;
   column-gap: 5%;
+  justify-content: center;
+  @media #{$smarphone} {
+    grid-template-columns: 100%;
+    row-gap: 5%;
+    column-gap: 5%;
+  }
 }
