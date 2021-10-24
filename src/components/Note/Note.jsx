@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import {removeNote, editNote} from '../../actions/index.js'
+import {removeNote, detailsNote } from '../../actions/index.js'
 
 import '../../Styles/Note.scss'
 import {TiDelete} from 'react-icons/ti'
@@ -26,13 +26,11 @@ export default function Note({note}) {
                 <BsEmojiSmile className='note_pin_i'/>
             </div>
             <div className='note_buttons'>
-                <button onClick={()=>dispatch(editNote(id))} className='note_buttons_element'><FaPencilAlt/></button>
-                <button onClick={()=>dispatch(removeNote(id))} className='note_buttons_element'><TiDelete className='note_buttons_i' /></button>
+                <Link to={`/edit/${id}`} className='note_buttons_element' ><FaPencilAlt/></Link>
+                <button onClick={()=>dispatch(removeNote(id))} className='note_buttons_delete'><TiDelete className='note_buttons_i' /></button>
             </div>
-            <div>
-                <Link to={`/edit/${id}`} key={id} style={{textDecoration:'none'}}>
-                    <p>{title}</p>
-                </Link>
+            <div className='note_div'>
+                <button onClick={()=> dispatch(detailsNote(id))} className='note_tittle'>{title}</button>
             </div>
         </div>
     )
