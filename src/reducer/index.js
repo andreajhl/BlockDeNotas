@@ -12,7 +12,7 @@ var token=localStorage.getItem('token');
 
 const initialState = {
   notes:[],
-  detail:{},
+  details:{},
   user:token? token : false,
   errors:undefined
 };
@@ -43,17 +43,18 @@ const rootReducer = (state = initialState, action) => {
         notes: [...state.notes].filter(e=>e.id!==payload)
       }
     case EDIT_NOTE:
-      var index= state.notes.find((e,i)=>e.id===payload.id)
+      let index= state.notes.findIndex((e,i)=>e.id===payload.id)
+      state.notes[index] = payload
 
       return {
         ...state,
-        notes: [...state.notes].splice(index,1,payload)
+        notes: [...state.notes]
       }
     case DETAILS_NOTE:
-      
+      let details = state.notes.find(e=>e.id===payload)
       return{
         ...state,
-        Detail: payload
+        details: details ? details : {}
       }
     case ERROR:
       return{

@@ -57,7 +57,7 @@ export function initialNotes () {
     return async function(dispatch){
         try {
             let {data}= await axios.get(`${URL}/posts`);
-
+            
             return dispatch({
                 type: NOTES,
                 payload: data
@@ -71,16 +71,16 @@ export function initialNotes () {
         };
     };
 };
-export function  addNote (newNote,userID) {
+export function  addNote (newNote) {
     return async function(dispatch){
         try {
-        let note= await axios.post(`${URL}/posts`, {
-        ...newNote,userId:userID
+        let {data}= await axios.post(`${URL}/posts`, {
+        ...newNote
         });
 
         return dispatch({
             type: ADD_NOTE,
-            payload: note
+            payload: data
         });
 
         } catch (error) {
@@ -113,16 +113,16 @@ export function removeNote (id) {
     };
 };
 
-export function editNote (id,userID,newNote) {
+export function editNote (id,newNote) {
+   
     return async function(dispatch){
         try {
-            let note= await axios.put(`${URL}/posts/${id}`, {
-            ...newNote,userId:userID,id
+            let {data}= await axios.put(`${URL}/posts/${id}`, {
+            ...newNote
             });
-
             return dispatch({
                 type: EDIT_NOTE,
-                payload: note
+                payload: data
             });
 
         } catch (error) {
@@ -137,11 +137,10 @@ export function editNote (id,userID,newNote) {
 export function detailsNote (id) {
     return async function(dispatch){
         try {
-            let note= await axios.get(`${URL}/posts/${id}`);
 
             return dispatch({
                 type: DETAILS_NOTE,
-                payload: note
+                payload: id
             });
             
         } catch (error) {
