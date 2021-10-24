@@ -5,7 +5,8 @@ import './App.css';
 import Login from "./components/Login/login";
 import DetailsNote from './components/DetailsNote/DetailsNote';
 import Home from './components/Home/Home';
-import AddNote from './components/AddNote/AddNote';
+import AddNote from './components/AddNote/AddNote'
+import EditNote from './components/EditNote/EditNote';
 
 
 export function App() {
@@ -24,12 +25,12 @@ export function App() {
             return token? <Home/> : <Redirect to='/login'/>
           }}
       />
-      <Route path= '/add/:id' render={()=>{
+      <Route path= '/add' render={()=>{
           return token? <AddNote/> : <Redirect to='/login'/>
         }}
       />
             <Route path= '/edit/:id' render={()=>{
-          return token? <AddNote/> : <Redirect to='/login'/>
+          return token? <EditNote/> : <Redirect to='/login'/>
         }}
       />
             <Route path= '/heroe/:id' render={()=>{
