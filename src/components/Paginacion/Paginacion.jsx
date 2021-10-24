@@ -6,7 +6,7 @@ import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai'
 import '../../Styles/Paginacion.scss'
 const notesState=(state)=>state.notes;
 
-const cards = 9
+const cards = 6
 
 const Paginacion = () => {
 
